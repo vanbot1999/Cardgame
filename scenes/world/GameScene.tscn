@@ -194,7 +194,7 @@ sprite_frames = SubResource("SpriteFrames_ls36a")
 animation = &"walk_down"
 
 [node name="NPC" type="CharacterBody2D" parent="."]
-position = Vector2(-31, -58)
+position = Vector2(-45, -60)
 script = ExtResource("7_cn7te")
 table_scene = ExtResource("8_njuu5")
 
@@ -213,7 +213,7 @@ shape = SubResource("CircleShape2D_t1imp")
 
 [node name="InteractionIcon" type="Sprite2D" parent="NPC"]
 visible = false
-position = Vector2(13, -9)
+position = Vector2(9, -9)
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("9_v7uxw")
 region_enabled = true
@@ -224,20 +224,19 @@ stream = ExtResource("10_x555l")
 volume_db = -10.0
 
 [node name="BlackjackNPC" type="CharacterBody2D" parent="."]
+position = Vector2(45, -60)
 script = ExtResource("12_sehkp")
 blackjack_scene = ExtResource("13_qcdsl")
 
 [node name="Sprite2D" type="Sprite2D" parent="BlackjackNPC"]
-position = Vector2(36, -58)
 texture = ExtResource("12_we410")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlackjackNPC"]
-position = Vector2(36, -57)
+position = Vector2(-1.19209e-07, -9.09495e-13)
 scale = Vector2(0.36, 0.36)
 shape = SubResource("CapsuleShape2D_3gorw")
 
 [node name="InteractionArea" type="Area2D" parent="BlackjackNPC"]
-position = Vector2(36, -57)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlackjackNPC/InteractionArea"]
 scale = Vector2(0.88, 0.88)
@@ -245,7 +244,7 @@ shape = SubResource("CircleShape2D_t1imp")
 
 [node name="InteractionIcon" type="Sprite2D" parent="BlackjackNPC"]
 visible = false
-position = Vector2(46, -65)
+position = Vector2(9, -9)
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("9_v7uxw")
 region_enabled = true
