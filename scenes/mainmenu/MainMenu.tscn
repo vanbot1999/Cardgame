@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://youjwi4kc4af"]
+
+[ext_resource type="Script" path="res://scenes/mainmenu/MainMenu.gd" id="1_jsl3w"]
+[ext_resource type="Texture2D" uid="uid://bmrqnmx6gpgkq" path="res://images/MainMenu.jpeg" id="2_w7rri"]
+[ext_resource type="Script" path="res://scenes/mainmenu/StartButton.gd" id="3_t11rp"]
+[ext_resource type="Script" path="res://scenes/mainmenu/QuitButton.gd" id="4_rd6vs"]
+[ext_resource type="AudioStream" uid="uid://dn7pt8ivw1qc1" path="res://audio/MainMenu.ogg" id="5_k3ryg"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_jsl3w")
+
+[node name="Panel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_w7rri")
+stretch_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.0
+offset_top = 60.0
+offset_right = 68.0
+offset_bottom = 227.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.39, 1.39)
+
+[node name="StartButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "开始游戏"
+script = ExtResource("3_t11rp")
+
+[node name="OptionsButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "选项"
+
+[node name="QuitButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "退出游戏"
+script = ExtResource("4_rd6vs")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="Panel"]
+stream = ExtResource("5_k3ryg")
+volume_db = -10.0
+autoplay = true
+
+[connection signal="pressed" from="Panel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://cc3le36nvfyi7"]
+
+[ext_resource type="Script" path="res://ui/DialogBox.gd" id="1_ijbo5"]
+[ext_resource type="Texture2D" uid="uid://mygswfb1ro1m" path="res://assets/dialog/DialogBoxFaceset.png" id="2_8aghu"]
+[ext_resource type="Shader" path="res://ui/DialogBox.gdshader" id="2_xkl32"]
+[ext_resource type="Texture2D" uid="uid://bncs7mwo2ojhd" path="res://assets/characters/Noble/Faceset.png" id="3_5eyxr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nsh6y"]
+shader = ExtResource("2_xkl32")
+shader_parameter/speed = 0.08
+
+[sub_resource type="LabelSettings" id="LabelSettings_hip6n"]
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_rd5vx"]
+font_size = 42
+font_color = Color(0.306923, 0.306923, 0.306923, 1)
+
+[node name="DialogBox" type="CanvasLayer"]
+script = ExtResource("1_ijbo5")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 420.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8aghu")
+
+[node name="NobleFaceset" type="TextureRect" parent="TextureRect"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 72.0
+offset_right = 274.0
+offset_bottom = 252.0
+scale = Vector2(0.654386, 1.09)
+texture = ExtResource("3_5eyxr")
+
+[node name="Noble" type="Label" parent="TextureRect"]
+material = SubResource("ShaderMaterial_nsh6y")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 59.0
+offset_top = -146.0
+offset_right = 197.0
+offset_bottom = -79.0
+grow_vertical = 2
+text = "Nobel"
+label_settings = SubResource("LabelSettings_hip6n")
+
+[node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 227.0
+offset_top = -69.0
+offset_right = 563.0
+offset_bottom = -9.0
+grow_vertical = 2
+text = "要来玩比大小吗？"
+label_settings = SubResource("LabelSettings_rd5vx")
+
+[node name="Option1" type="Button" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 230.0
+offset_top = -11.0
+offset_right = 350.0
+offset_bottom = 42.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "接受"
+
+[node name="Option2" type="Button" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 230.0
+offset_top = 52.0
+offset_right = 350.0
+offset_bottom = 106.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "拒绝"

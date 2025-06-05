@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdvufvw2kg1mv"]
+
+[ext_resource type="Script" path="res://ui/BlackJackDialog/BlackJackDialog.gd" id="1_c2a14"]
+[ext_resource type="Texture2D" uid="uid://mygswfb1ro1m" path="res://assets/dialog/DialogBoxFaceset.png" id="2_e6kxd"]
+[ext_resource type="Texture2D" uid="uid://cdjpcfnxlrt2p" path="res://assets/characters/Inspector/Faceset.png" id="3_cihap"]
+[ext_resource type="Shader" path="res://ui/DialogBox.gdshader" id="4_t6ssu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xuy1y"]
+shader = ExtResource("4_t6ssu")
+shader_parameter/speed = 0.08
+
+[sub_resource type="LabelSettings" id="LabelSettings_176w8"]
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_fk8i5"]
+font_size = 42
+font_color = Color(0.306923, 0.306923, 0.306923, 1)
+
+[node name="BlackJackDialog" type="CanvasLayer"]
+script = ExtResource("1_c2a14")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 420.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_e6kxd")
+
+[node name="InspectorFaceset" type="TextureRect" parent="TextureRect"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 72.0
+offset_right = 274.0
+offset_bottom = 252.0
+scale = Vector2(0.654386, 1.09)
+texture = ExtResource("3_cihap")
+
+[node name="Inspector" type="Label" parent="TextureRect"]
+material = SubResource("ShaderMaterial_xuy1y")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 59.0
+offset_top = -146.0
+offset_right = 197.0
+offset_bottom = -79.0
+grow_vertical = 2
+text = "Inspector"
+label_settings = SubResource("LabelSettings_176w8")
+
+[node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 227.0
+offset_top = -69.0
+offset_right = 563.0
+offset_bottom = -9.0
+grow_vertical = 2
+text = "要来玩21点吗？"
+label_settings = SubResource("LabelSettings_fk8i5")
+
+[node name="Option1" type="Button" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 230.0
+offset_top = -11.0
+offset_right = 350.0
+offset_bottom = 42.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "接受"
+
+[node name="Option2" type="Button" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 230.0
+offset_top = 52.0
+offset_right = 350.0
+offset_bottom = 106.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "拒绝"
