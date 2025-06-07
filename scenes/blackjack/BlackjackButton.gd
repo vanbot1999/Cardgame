@@ -90,31 +90,33 @@ func calculate_hand_value(hand, is_dealer: bool):
 
 	for i in range(1, hand_size + 1):
 		var card = hand.get_node("Card%d" % i)
-		if not card.visible or not card.texture:
-			continue  # 跳过未显示的牌
-
+		if not card or not card.visible or not card.texture:
+			continue
+			
 		var tex_path = card.texture.resource_path
-		
-		# 只检查牌是否有效
-		if not tex_path or "back" in tex_path:
-			continue  # 跳过无效或背面牌（虽然理论上end_game后不应该有）
+		if not tex_path:
+			continue
+			
+		# 跳过背面牌（除非是庄家且游戏已结束）
+		if "back" in tex_path and not (is_dealer and $"../ResultLabel".visible):
+			continue
 
-		# 解析牌面数字（文件名示例：card_clubs_1.png）
-		var file_name = tex_path.get_file()  # "card_clubs_1.png"
+		var file_name = tex_path.get_file()
 		if "_" in file_name:
-			var parts = file_name.split("_")  # ["card", "clubs", "1.png"]
-			var rank_num = int(parts[2].split(".")[0])  # 提取 "1" → 1
+			var parts = file_name.split("_")
+			if parts.size() >= 3:
+				var rank_str = parts[2].split(".")[0]
+				var rank_num = int(rank_str) if rank_str.is_valid_int() else 0
+				
+				if rank_num == 1:  # A
+					total += 11
+					ace_count += 1
+				elif rank_num >= 11 and rank_num <= 13:  # J/Q/K
+					total += 10
+				elif rank_num >= 2 and rank_num <= 10:
+					total += rank_num
 
-			# 计算牌值（A=11, J/Q/K=10, 其他按数字）
-			if rank_num == 1:  # A
-				total += 11
-				ace_count += 1
-			elif rank_num >= 11 and rank_num <= 13:  # J/Q/K
-				total += 10
-			else:  # 2-10
-				total += rank_num
-
-	# 处理Ace的软计数（若总分>21，A可转为1）
+	# 处理Ace的软计数
 	while total > 21 and ace_count > 0:
 		total -= 10
 		ace_count -= 1
@@ -185,17 +187,17 @@ func check_blackjack():
 		disabled = false
 		
 func end_game():
-	# 翻开庄家所有牌（包括隐藏的第一张）
+	# 确保所有庄家牌都可见
 	for i in range(1, dealer_hand_size + 1):
 		var card = dealer_hand.get_node("Card%d" % i)
 		if "back" in card.texture.resource_path:
 			var card_code = get_dealer_card_code(i)
 			if card_code:
 				card.texture = card_system.get_card_texture(card_code)
-
-	# 计算最终分数
-	var player_score = calculate_hand_value(player_hand, false)
-	var dealer_score = calculate_hand_value(dealer_hand, false)
+	
+	# 计算分数前验证手牌
+	var player_score = verify_hand_value(player_hand, player_hand_size)
+	var dealer_score = verify_hand_value(dealer_hand, dealer_hand_size)
 
 	# 确定结果
 	var result_text = ""
@@ -226,9 +228,24 @@ func end_game():
 	text = "重新开始"
 	disabled = false
 	
+# 验证手牌值的辅助函数
+func verify_hand_value(hand, hand_size):
+	print("Verifying hand with size: ", hand_size)
+	for i in range(1, hand_size + 1):
+		var card = hand.get_node("Card%d" % i)
+		if card.visible and card.texture:
+			print("Card %d: %s" % [i, card.texture.resource_path])
+	
+	return calculate_hand_value(hand, hand == dealer_hand)
+	
 func get_dealer_card_code(slot_number):
 	var dealer_cards = []
 	for card_code in card_system.drawn_cards:
-		if card_system.card_assignments.get(card_code) == false:
+		# 确保card_assignments中存在这个card_code
+		if card_code in card_system.card_assignments and \
+		   not card_system.card_assignments[card_code]:  # false表示庄家的牌
 			dealer_cards.append(card_code)
-	return dealer_cards[slot_number-1] if slot_number <= dealer_cards.size() else ""
+	
+	if slot_number <= dealer_cards.size():
+		return dealer_cards[slot_number-1]
+	return ""
