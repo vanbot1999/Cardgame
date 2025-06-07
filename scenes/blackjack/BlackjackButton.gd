@@ -94,9 +94,11 @@ func calculate_hand_value(hand, is_dealer: bool):
 			continue  # 跳过未显示的牌
 
 		var tex_path = card.texture.resource_path
-		# 跳过庄家未翻开的牌（仅限第一张且是背面时）
-		if is_dealer and i == 1 and "back" in tex_path:
-			continue
+		
+		# 修改这里：不再跳过任何牌，因为end_game已经翻开了所有牌
+		# 只检查牌是否有效
+		if not tex_path or "back" in tex_path:
+			continue  # 跳过无效或背面牌（虽然理论上end_game后不应该有）
 
 		# 解析牌面数字（文件名示例：card_clubs_1.png）
 		var file_name = tex_path.get_file()  # "card_clubs_1.png"

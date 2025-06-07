@@ -1,6 +1,14 @@
 # NPC.gd
 extends CharacterBody2D
 
+# 移动属性
+@export var move_speed: float = 50.0
+@export var move_range: float = 100.0  # NPC移动范围
+var move_direction: Vector2 = Vector2.RIGHT
+var initial_position: Vector2
+
+# 节点引用
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_area = $InteractionArea
 @onready var interaction_icon = $InteractionIcon
 var dialog_box_instance
@@ -10,6 +18,8 @@ var in_conversation = false
 @export var table_scene: PackedScene
 
 func _ready():
+	initial_position = position
+	
 	if interaction_area:
 		interaction_area.body_entered.connect(_on_interaction_area_body_entered)
 		interaction_area.body_exited.connect(_on_interaction_area_body_exited)
@@ -19,9 +29,12 @@ func _ready():
 	dialog_box_instance = dialog_box_scene.instantiate()
 	add_child(dialog_box_instance)
 	dialog_box_instance.hide()
-	# 确保信号正确连接
 	dialog_box_instance.option_selected.connect(_on_dialog_option_selected)
-
+	
+	# 确保有动画时播放Idle动画
+	if animated_sprite:
+		animated_sprite.play("Idle")
+		
 func _on_interaction_area_body_entered(body):
 	if body.is_in_group("player"):
 		interaction_icon.show()
@@ -66,3 +79,24 @@ func _switch_to_table_scene():
 		get_tree().change_scene_to_packed(table_scene)
 	else:
 		push_error("Table scene is not assigned in NPC!")
+
+#func _physics_process(delta):
+	#if in_conversation:
+		#return  # 对话时停止移动
+	#
+	## 简单的来回移动逻辑
+	#if position.distance_to(initial_position) > move_range:
+		#move_direction *= -1  # 反向移动
+		#if animated_sprite:
+			#animated_sprite.flip_h = move_direction.x < 0
+	#
+	## 设置速度并移动
+	#velocity = move_direction * move_speed
+	#move_and_slide()
+	#
+	## 根据移动状态切换动画
+	#if animated_sprite:
+		#if velocity != Vector2.ZERO:
+			#animated_sprite.play("Walk")
+		#else:
+			#animated_sprite.play("Idle")

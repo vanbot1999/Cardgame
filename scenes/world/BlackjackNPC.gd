@@ -1,6 +1,14 @@
 # BkackjackNPC.gd
 extends CharacterBody2D
 
+# 移动属性
+@export var move_speed: float = 50.0
+@export var move_range: float = 100.0  # NPC移动范围
+var move_direction: Vector2 = Vector2.RIGHT
+var initial_position: Vector2
+
+# 节点引用
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_area = $InteractionArea
 @onready var interaction_icon = $InteractionIcon
 var dialog_box_instance
@@ -10,9 +18,19 @@ var in_conversation = false
 @export var blackjack_scene: PackedScene
 
 func _ready():
+	initial_position = position
+	
+	# 确保精灵默认面朝左边
+	if animated_sprite:
+		animated_sprite.flip_h = true  # true表示水平翻转
+		animated_sprite.play("Idle")
+		
 	if interaction_area:
 		interaction_area.body_entered.connect(_on_interaction_area_body_entered)
 		interaction_area.body_exited.connect(_on_interaction_area_body_exited)
+		
+	if interaction_icon and interaction_icon is Sprite2D:
+		interaction_icon.flip_h = true
 	
 	# 预加载对话框场景
 	var dialog_box_scene = preload("res://ui/BlackJackDialog/BlackJackDialog.tscn")
@@ -21,6 +39,10 @@ func _ready():
 	dialog_box_instance.hide()
 	# 确保信号正确连接
 	dialog_box_instance.option_selected.connect(_on_dialog_option_selected)
+	
+	# 确保有动画时播放Idle动画
+	if animated_sprite:
+		animated_sprite.play("Idle")
 
 func _on_interaction_area_body_entered(body):
 	if body.is_in_group("player"):
