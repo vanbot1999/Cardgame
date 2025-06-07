@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cgou0g6dkmegr"
+path="res://.godot/imported/K. C. Roller - Germinate.ogg-c4de132cfab85a805f69b198ab72d294.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/K. C. Roller - Germinate.ogg"
+dest_files=["res://.godot/imported/K. C. Roller - Germinate.ogg-c4de132cfab85a805f69b198ab72d294.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
