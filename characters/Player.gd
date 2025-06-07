@@ -10,12 +10,35 @@ var can_interact = false
 var interact_target = null
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var money_ui = $MoneyUI
+@onready var money_control = $MoneyUI/Control  # Control节点用于定位
+@onready var money_label = $MoneyUI/Control/HBoxContainer/MoneyLabel
+
 var boundary_rect := Rect2()
 var boundary_initialized := false
 
+
+
+@export var money := 100:
+	set(value):
+		money = max(0, value)
+		update_money_display()
+
 func _ready():
 	add_to_group("player")
-
+	# 确保UI加载完成
+	await get_tree().process_frame
+	
+func update_money_display():
+	if money_label != null:
+		money_label.text = str(money)
+	else:
+		print("警告：money_label 未找到！请检查节点路径。")
+		# 尝试重新获取节点
+		money_label = get_node_or_null("MoneyUI/MoneyLabel")
+		if money_label:
+			money_label.text = str(money)
+			
 func _input(event):
 	if event.is_action_pressed("interact") and can_interact and interact_target:
 		interact_target.interact()
@@ -77,3 +100,14 @@ func _enforce_boundary():
 		if position != clamped_position:
 			position = clamped_position
 			velocity = Vector2.ZERO  # 碰到边界时重置速度
+
+# 增加金钱
+func add_money(amount: int):
+	money += amount
+
+# 减少金钱（返回是否成功）
+func subtract_money(amount: int) -> bool:
+	if money >= amount:
+		money -= amount
+		return true
+	return false

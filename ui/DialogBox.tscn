@@ -17,6 +17,7 @@ font_size = 42
 font_color = Color(0.306923, 0.306923, 0.306923, 1)
 
 [node name="DialogBox" type="CanvasLayer"]
+layer = 5
 script = ExtResource("1_ijbo5")
 
 [node name="TextureRect" type="TextureRect" parent="."]

@@ -17,6 +17,7 @@ font_size = 42
 font_color = Color(0.306923, 0.306923, 0.306923, 1)
 
 [node name="BlackJackDialog" type="CanvasLayer"]
+layer = 5
 script = ExtResource("1_c2a14")
 
 [node name="TextureRect" type="TextureRect" parent="."]
