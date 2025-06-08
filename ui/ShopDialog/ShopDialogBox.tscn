@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://tbn8jsmxxl63"]
+[gd_scene load_steps=9 format=3 uid="uid://tbn8jsmxxl63"]
 
 [ext_resource type="Script" path="res://ui/ShopDialog/ShopDialogBox.gd" id="1_fg683"]
 [ext_resource type="Texture2D" uid="uid://mygswfb1ro1m" path="res://assets/dialog/DialogBoxFaceset.png" id="2_drh64"]
 [ext_resource type="Texture2D" uid="uid://bncs7mwo2ojhd" path="res://assets/characters/Noble/Faceset.png" id="3_q5ae3"]
 [ext_resource type="Shader" path="res://ui/DialogBox.gdshader" id="4_sd18a"]
+[ext_resource type="FontFile" uid="uid://b6vvr4ygc0rvr" path="res://assets/font/Ruler 9.ttf" id="5_kt8ax"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2dwcd"]
 shader = ExtResource("4_sd18a")
@@ -43,11 +44,13 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 59.0
-offset_top = -146.0
-offset_right = 197.0
-offset_bottom = -79.0
+offset_left = 71.0
+offset_top = -136.0
+offset_right = 209.0
+offset_bottom = -69.0
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_kt8ax")
+theme_override_font_sizes/font_size = 16
 text = "Shop
 "
 label_settings = SubResource("LabelSettings_gmgq5")
@@ -84,9 +87,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 230.0
-offset_top = 52.0
+offset_top = 53.0
 offset_right = 350.0
-offset_bottom = 106.0
+offset_bottom = 107.0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 32
 text = "拒绝"
