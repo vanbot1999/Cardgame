@@ -6,7 +6,7 @@ extends Camera2D
 @export var move_speed: float = 20.0
 @export var return_speed: float = 20.0
 @export var hold_duration: float = 0.5
-@export var player_node: CharacterBody2D  # 手动拖拽玩家节点或留空自动获取
+@export var player_node: CharacterBody2D
 
 var target_offset: float = -16
 var is_looking_up: bool = false
@@ -36,12 +36,6 @@ func _ready():
 	offset.y = y_offset
 
 func _process(delta):
-	# 如果玩家正在爬梯，禁用镜头偏移
-	if player_node and player_node.is_climbing():
-		hold_timer = 0.0
-		is_looking_up = false
-		target_offset = y_offset
-		return
 	
 	# 正常镜头逻辑
 	if Input.is_action_pressed("ui_up") and not is_looking_up:
