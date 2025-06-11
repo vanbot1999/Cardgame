@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://dado5t4o74aqp"]
+[gd_scene load_steps=83 format=3 uid="uid://dado5t4o74aqp"]
 
 [ext_resource type="Script" path="res://scenes/world/GameScene.gd" id="1_auo66"]
 [ext_resource type="TileSet" uid="uid://ct6f4tparrqqg" path="res://images/WorldTileset.tres" id="2_a2mar"]
@@ -3109,6 +3109,22 @@ region = Rect2(0, 0, 48, 48)
 atlas = ExtResource("11_p4mcr")
 region = Rect2(48, 0, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvtr4"]
+atlas = ExtResource("11_p4mcr")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2scgn"]
+atlas = ExtResource("11_p4mcr")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nki86"]
+atlas = ExtResource("11_p4mcr")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ru5kp"]
+atlas = ExtResource("11_p4mcr")
+region = Rect2(144, 0, 48, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_yf6qm"]
 atlas = ExtResource("6_mgcms")
 region = Rect2(0, 0, 48, 48)
@@ -3172,6 +3188,23 @@ animations = [{
 "loop": true,
 "name": &"Climb_Up",
 "speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvtr4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2scgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nki86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ru5kp")
+}],
+"loop": true,
+"name": &"Fall",
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3447,7 +3480,7 @@ shape = SubResource("RectangleShape2D_2nbbp")
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
 z_index = 2
-position = Vector2(19, -31)
+position = Vector2(-6, 8)
 script = ExtResource("4_jhawf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -3462,7 +3495,7 @@ script = ExtResource("6_wor8f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = SubResource("SpriteFrames_ls36a")
-animation = &"Idle"
+animation = &"Fall"
 
 [node name="LadderRayCast" type="RayCast2D" parent="Player"]
 position = Vector2(2, 21)

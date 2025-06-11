@@ -61,17 +61,26 @@ func _handle_ground_movement(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		velocity.y = min(velocity.y, max_fall_speed)
+		# 播放下落动画
+		animated_sprite.play("Fall")
+	else:
+		velocity.y = 0  # 确保在地面上时不应用重力
 	
-	# 水平移动
+	# 无论是否在空中都处理水平移动
 	var input_dir = Input.get_axis("ui_left", "ui_right")
 	if input_dir:
 		velocity.x = input_dir * speed
-		animated_sprite.play("Run")
-		animated_sprite.flip_h = input_dir < 0
+		animated_sprite.flip_h = input_dir < 0  # 保持翻转方向
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction)
-		animated_sprite.play("Idle")
 	
+	# 在地面上时才播放Run或Idle动画
+	if is_on_floor():
+		if input_dir != 0:
+			animated_sprite.play("Run")
+		else:
+			animated_sprite.play("Idle")
+
 func _handle_ladder_movement():
 	var vertical_input = Input.get_axis("ui_up", "ui_down")
 	var horizontal_input = Input.get_axis("ui_left", "ui_right")
