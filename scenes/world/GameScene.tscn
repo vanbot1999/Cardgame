@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://dado5t4o74aqp"]
+[gd_scene load_steps=82 format=3 uid="uid://dado5t4o74aqp"]
 
 [ext_resource type="Script" path="res://scenes/world/GameScene.gd" id="1_auo66"]
 [ext_resource type="TileSet" uid="uid://ct6f4tparrqqg" path="res://images/WorldTileset.tres" id="2_a2mar"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://characters/NPC.gd" id="7_cn7te"]
 [ext_resource type="Texture2D" uid="uid://dar6fj8lse6ju" path="res://assets/Sidescroller Shooter - Central City/Assets/Tiles.png" id="7_si3ol"]
 [ext_resource type="PackedScene" uid="uid://pvlyoc257p2t" path="res://scenes/table/table.tscn" id="8_njuu5"]
+[ext_resource type="Texture2D" uid="uid://ctfeqqknr1x0b" path="res://assets/extra-animations/2/Climb.png" id="10_6lt7c"]
 [ext_resource type="Texture2D" uid="uid://cb1x1ngt35m71" path="res://assets/extra-animations/2/Fall.png" id="11_p4mcr"]
 [ext_resource type="Texture2D" uid="uid://gqw8f147om56" path="res://assets/icons/node_2D/icon_coin.png" id="12_3jijo"]
 [ext_resource type="Script" path="res://scenes/world/BlackjackNPC.gd" id="12_sehkp"]
@@ -3093,28 +3094,20 @@ size = Vector2(1280, 720)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k3mjh"]
 size = Vector2(14, 22)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t4lha"]
-atlas = ExtResource("11_p4mcr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fj66m"]
+atlas = ExtResource("10_6lt7c")
 region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sdrk0"]
-atlas = ExtResource("11_p4mcr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_3koh2"]
+atlas = ExtResource("10_6lt7c")
 region = Rect2(48, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vu0ns"]
-atlas = ExtResource("11_p4mcr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_3of4v"]
+atlas = ExtResource("10_6lt7c")
 region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mtcv6"]
-atlas = ExtResource("11_p4mcr")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vvtr4"]
-atlas = ExtResource("11_p4mcr")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2scgn"]
-atlas = ExtResource("11_p4mcr")
+[sub_resource type="AtlasTexture" id="AtlasTexture_a72dw"]
+atlas = ExtResource("10_6lt7c")
 region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nki86"]
@@ -3169,10 +3162,10 @@ region = Rect2(240, 0, 48, 48)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t4lha")
+"texture": SubResource("AtlasTexture_fj66m")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sdrk0")
+"texture": SubResource("AtlasTexture_3koh2")
 }],
 "loop": true,
 "name": &"Climb_Down",
@@ -3180,22 +3173,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vu0ns")
+"texture": SubResource("AtlasTexture_3of4v")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mtcv6")
+"texture": SubResource("AtlasTexture_a72dw")
 }],
 "loop": true,
 "name": &"Climb_Up",
 "speed": 3.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vvtr4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2scgn")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nki86")
 }, {
@@ -3204,7 +3191,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Fall",
-"speed": 4.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3495,7 +3482,7 @@ script = ExtResource("6_wor8f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = SubResource("SpriteFrames_ls36a")
-animation = &"Fall"
+animation = &"Climb_Down"
 
 [node name="LadderRayCast" type="RayCast2D" parent="Player"]
 position = Vector2(2, 21)
