@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bat6p3uc0bxno"
-path="res://.godot/imported/Background Props.png-e5b381af9f1ea3bdf96cbdfd8cfdb6ac.ctex"
+uid="uid://cl06drrtrl4ot"
+path="res://.godot/imported/MockUp-01.png-d5e093cb49f58dc641390ec12bda3793.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sidescroller Shooter - Central City/Social/Background Props.png"
-dest_files=["res://.godot/imported/Background Props.png-e5b381af9f1ea3bdf96cbdfd8cfdb6ac.ctex"]
+source_file="res://assets/TileMap/Social/MockUp-01.png"
+dest_files=["res://.godot/imported/MockUp-01.png-d5e093cb49f58dc641390ec12bda3793.ctex"]
 
 [params]
 

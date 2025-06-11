@@ -61,13 +61,9 @@ func _on_interaction_area_body_exited(body):
 			# 确保玩家离开时恢复移动
 			body.can_move = true
 
-func interact():
+func interact(player):
 	if not in_conversation:
-		# 获取玩家并禁用移动
-		var player = get_tree().get_first_node_in_group("player")
-		if player:
-			player.can_move = false
-			
+		player.can_move = false			
 		dialog_box_instance.show_dialog("要来玩21点吗？", "接受", "拒绝")
 		in_conversation = true
 

@@ -13,12 +13,14 @@ var can_move: bool = true
 var can_interact: bool = false
 var interact_target = null
 var is_climbing: bool = false
+var near_doors: Array = []  # 存储附近的门
 
 # 节点引用
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var money_ui = $MoneyUI
 @onready var money_label: Label = $MoneyUI/Control/HBoxContainer/MoneyLabel
 @onready var ladder_ray_cast: RayCast2D = $LadderRayCast
+@onready var interaction_area: Area2D = $InteractionArea  # 新增的交互区域
 
 # 边界控制
 var boundary_rect := Rect2()
@@ -32,6 +34,10 @@ var boundary_initialized := false
 
 func _ready():
 	add_to_group("player")
+	# 连接交互区域的信号
+	interaction_area.body_entered.connect(_on_interaction_area_entered)
+	interaction_area.body_exited.connect(_on_interaction_area_exited)
+	print("交互区域信号连接状态: ", interaction_area.body_entered.is_connected(_on_interaction_area_entered))
 	await get_tree().process_frame
 
 func _physics_process(delta):
@@ -133,10 +139,33 @@ func update_money_display():
 		if money_label:
 			money_label.text = str(money)
 
-func _input(event: InputEvent):
-	if event.is_action_pressed("interact") and can_interact and interact_target:
-		interact_target.interact()
+# 新增的交互区域处理方法
+func _on_interaction_area_entered(body):
+	if body.is_in_group("door"):
+		near_doors.append(body)
+		can_interact = true
+		interact_target = body
 
+func _on_interaction_area_exited(body):
+	if body.is_in_group("door"):
+		near_doors.erase(body)
+		if near_doors.is_empty():
+			can_interact = false
+			interact_target = null
+		else:
+			interact_target = near_doors[0]
+
+func _input(event: InputEvent):
+	if event.is_action_pressed("interact"):
+		print("交互按键按下")  # 调试
+		print("can_interact:", can_interact)  # 调试
+		print("interact_target:", interact_target)  # 调试
+		
+		if can_interact and interact_target:
+			print("尝试与目标交互")  # 调试
+			if interact_target.has_method("interact"):
+				interact_target.interact(self)
+				
 func add_money(amount: int):
 	money += amount
 
@@ -145,3 +174,14 @@ func subtract_money(amount: int) -> bool:
 		money -= amount
 		return true
 	return false
+
+func force_update_interaction():
+	interaction_area.monitoring = false
+	await get_tree().process_frame
+	interaction_area.monitoring = true
+	# 确保所有门重新检测
+	for door in get_tree().get_nodes_in_group("door"):
+		if door.get_overlapping_bodies().has(self):
+			can_interact = true
+			interact_target = door
+			break
