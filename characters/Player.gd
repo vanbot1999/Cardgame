@@ -157,12 +157,7 @@ func _on_interaction_area_exited(body):
 
 func _input(event: InputEvent):
 	if event.is_action_pressed("interact"):
-		print("交互按键按下")  # 调试
-		print("can_interact:", can_interact)  # 调试
-		print("interact_target:", interact_target)  # 调试
-		
 		if can_interact and interact_target:
-			print("尝试与目标交互")  # 调试
 			if interact_target.has_method("interact"):
 				interact_target.interact(self)
 				
