@@ -46,13 +46,9 @@ func _on_interaction_area_body_exited(body):
 			# 确保玩家离开时恢复移动
 			body.can_move = true
 
-func interact():
+func interact(player):
 	if not in_conversation:
-		# 获取玩家并禁用移动
-		var player = get_tree().get_first_node_in_group("player")
-		if player:
-			player.can_move = false
-			
+		player.can_move = false
 		dialog_box_instance.show_dialog("需要救济金吗", "接受（+50）", "拒绝")
 		in_conversation = true
 
@@ -64,8 +60,6 @@ func _on_dialog_option_selected(option_index):
 		player.can_move = true
 		
 		if option_index == 0:  # 接受选项
-			# 调用玩家的增加金钱方法
 			player.add_money(50)
-			# 可以在这里添加获得金钱的提示音效/动画
 	
 	dialog_box_instance.hide()
